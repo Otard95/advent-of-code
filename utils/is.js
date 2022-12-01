@@ -2,38 +2,61 @@
  * @param {any} value
  * @returns {value is number}
  */
-module.exports.isNumber = (value) => typeof value === 'number'
+const isNumber = (value) => typeof value === 'number'
+module.exports.isNumber = isNumber
 /**
  * @param {any} value
  */
-module.exports.isNumeric = (value) => !isNaN(Number(value))
+const isNumeric = (value) => !isNaN(Number(value))
+module.exports.isNumeric = isNumeric
 /**
  * @param {any} value
  * @returns {value is string}
  */
-module.exports.isString = (value) => typeof value === 'string'
+const isString = (value) => typeof value === 'string'
+module.exports.isString = isString
 /**
  * @param {any} value
  * @returns {value is boolean}
  */
-module.exports.isBoolean = (value) => typeof value === 'boolean'
+const isBoolean = (value) => typeof value === 'boolean'
+module.exports.isBoolean = isBoolean
 /**
  * @param {any} value
  * @returns {value is null}
  */
-module.exports.isNull = (value) => value === null
+const isNull = (value) => value === null
+module.exports.isNull = isNull
 /**
  * @param {any} value
  * @returns {value is undefined}
  */
-module.exports.isUndefined = (value) => value === undefined
+const isUndefined = (value) => value === undefined
+module.exports.isUndefined = isUndefined
 /**
  * @param {any} value
  * @returns {value is unknown[]}
  */
-module.exports.isArray = (value) => Array.isArray(value)
+const isArray = (value) => Array.isArray(value)
+module.exports.isArray = isArray
 /**
  * @param {any} value
  * @returns {value is Record<string, unknown>}
  */
-module.exports.isObject = (value) => typeof value === 'object' && !array(value)
+const isObject = (value) => typeof value === 'object' && !isArray(value) && !isNull(value)
+module.exports.isObject = isObject
+/**
+ * @param {any} value
+ */
+module.exports.isEmpty = (value) => {
+  if (isString(value)) {
+    return value.length === 0
+  }
+  if (isArray(value)) {
+    return value.length === 0
+  }
+  if (isObject(value)) {
+    return Object.keys(value).length === 0
+  }
+  return isUndefined(value) || isNull(value)
+}
