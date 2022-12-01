@@ -8,10 +8,30 @@ and passes it to the main function of each part.
 
 Add your AoC session token to a `./.env` with the key `AOC_SESSION`
 
+Setup your daily adventure with:
 ```bash
-# Setup the daily adventure
 npm start setup <year> <day>
+```
 
-# Edit your code in ./<year>/<day>/pt<1|2>.js and then
+Now you should have a directory `./<year>/<day>`
+with three files - `README.md`, `pt1.js` and `pt2.js`
+The readme has the adventure description the AoC site as Markdown
+the js files have the template:
+```javascript
+/**
+ * @param {string} value
+ */
+const main = async (input) => {
+  // Your code here
+}
+
+module.exports.main = main
+```
+
+The mail function as you can see takes one arg `input` which
+if yout use the below command will be your adventure input from
+the AoC site.
+
+```bash
 npm start <year> <day>
 ```
