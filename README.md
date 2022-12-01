@@ -7,6 +7,7 @@ and passes it to the main function of each part.
 ## Getting started
 
 Add your AoC session token to a `./.env` with the key `AOC_SESSION`
+and `$ npm install`.
 
 Setup your daily adventure with:
 ```bash
