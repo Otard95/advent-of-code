@@ -22,7 +22,7 @@ program
   })
 
 program
-  .command('create <year> <day>')
+  .command('setup <year> <day>')
   .action(async (year, day) => {
     await createDay(year, day)
   })
