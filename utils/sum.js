@@ -1,1 +1,4 @@
-module.exports = (...args) => args.flat(Infinity).reduce((a, b) => a + b, 0);
+module.exports = (...args) =>
+  args
+    .flat(Infinity)
+    .reduce((sum, number) => sum + number, 0)
