@@ -55,7 +55,7 @@ program
   })
 
 program
-  .command('answer <year> <day> <part> <answer>')
+  .command('submit <year> <day> <part> <answer>')
   .action(async (year, day, part, answer) => {
     if (!isNumeric(year)) {
       console.error('Year must be a number')

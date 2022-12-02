@@ -37,11 +37,11 @@ the AoC site.
 npm start <year> <day>
 ```
 
-When you think you have the corect answer you can use the `answer` command.
+When you think you have the correct answer you can use the `submit` command.
 Give the year, day, part and answer and check if you are correct.
 
 ```bash
-npm start answer <year> <day> <part> <answer>
+npm start submit <year> <day> <part> <answer>
 ```
 
 Once you've completed part one you can update the readme
