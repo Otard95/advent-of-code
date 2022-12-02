@@ -2,7 +2,10 @@ require('dotenv/config')
 const { program } = require('commander')
 const createDay = require('./src/create-day')
 const fetchInput = require('./src/fetch-input')
+const postAnswer = require('./src/post-answer')
 const runDay = require('./src/run-day')
+const updateDay = require('./src/update-day')
+const { parseAnswer } = require('./src/parse')
 const { isNumeric } = require('./utils/is')
 
 program
@@ -49,6 +52,31 @@ program
     }
 
     await updateDay(year, day)
+  })
+
+program
+  .command('answer <year> <day> <part> <answer>')
+  .action(async (year, day, part, answer) => {
+    if (!isNumeric(year)) {
+      console.error('Year must be a number')
+      process.exit(1)
+    }
+    if (!isNumeric(day)) {
+      console.error('Day must be a number')
+      process.exit(1)
+    }
+    if (!isNumeric(part)) {
+      console.error('Part must be a number')
+      process.exit(1)
+    }
+    if (!isNumeric(answer)) {
+      console.error('Answer must be a number')
+      process.exit(1)
+    }
+
+    const text = await postAnswer(year, day, part, answer)
+
+    console.log(parseAnswer(text))
   })
 
 program.parse()
