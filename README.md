@@ -29,10 +29,24 @@ const main = async (input) => {
 module.exports.main = main
 ```
 
-The mail function as you can see takes one arg `input` which
-if yout use the below command will be your adventure input from
+The main function as you can see takes one arg `input` which
+if you use the below command will be your adventure input from
 the AoC site.
 
 ```bash
 npm start <year> <day>
+```
+
+When you think you have the corect answer you can use the `answer` command.
+Give the year, day, part and answer and check if you are correct.
+
+```bash
+npm start answer <year> <day> <part> <answer>
+```
+
+Once you've completed part one you can update the readme
+
+with:
+```bash
+npm start update <year> <day>
 ```
