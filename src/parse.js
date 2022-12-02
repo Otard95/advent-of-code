@@ -9,12 +9,22 @@ const isTaskDescription = (node) => hasAttrib(node, 'class') && node.attribs.cla
  * @param {string} text - Markdown
  * @returns {string} Markdown
  */
-const breakLines = (text) => {
+const breakLines = (text, indent = '') => {
   const lines = text.split('\n')
   const newLines = lines.map((line) => {
     if (line.length > 80) {
-      const index = line.substring(0, 80).lastIndexOf(' ')
-      return breakLines(`${line.substring(0, index)}\n${breakLines(line.substring(index + 1))}`)
+      const words = line.split(' ')
+      let newLine = ''
+      let currentLine = ''
+      words.forEach((word) => {
+        if (currentLine.length + word.length > 80) {
+          newLine += `${currentLine.replace(/\s+$/, '')}\n${indent}`
+          currentLine = ''
+        }
+        currentLine += `${word} `
+      })
+      newLine += currentLine.replace(/\s+$/, '')
+      return newLine
     }
     return line
   })
@@ -48,9 +58,9 @@ const tagToMarkdown = (tag) => {
     case 'ul':
       return `${documentToMarkdown(tag.children)}\n`
     case 'li':
-      return ` - ${documentToMarkdown(tag.children).replace(/[\n\r]+/g, SPACE_PLACEHOLDER)}\n`
+      return ` - ${breakLines(documentToMarkdown(tag.children), '   ')}`
     default:
-      return ''
+      return documentToMarkdown(tag.children)
   }
 }
 
@@ -77,9 +87,19 @@ const documentToMarkdown = (html) => {
  */
 const parseTask = (html) => {
   const parsed = parser.parseDocument(html)
-  const article = find(isTaskDescription, [parsed], true, 1)
+  const article = find(isTaskDescription, [parsed], true, 2)
   const text = documentToMarkdown(article)
   return text
 }
 
-module.exports = parseTask
+const parseAnswer = (html) => {
+  const parsed = parser.parseDocument(html)
+  const article = find(node => node.name === 'article', [parsed], true, 1)
+  const text = documentToMarkdown(article)
+  return text
+}
+
+module.exports = {
+  parseTask,
+  parseAnswer,
+}

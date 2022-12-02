@@ -6,7 +6,7 @@ const {
   writeFileSync,
 } = require('node:fs')
 const fetchTask = require('./fetch-task')
-const parseTask = require('./parse-task')
+const { parseTask } = require('./parse')
 
 const createDay = async (year, day) => {
   const dir = resolve(process.cwd(), year, day)

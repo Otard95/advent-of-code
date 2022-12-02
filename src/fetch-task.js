@@ -13,7 +13,11 @@ const url = (year, day) => `https://adventofcode.com/${year}/day/${day}`
  * @returns {Promise<string>}
  */
 const fetchTask = async (year, day) => {
-  const response = await fetch(url(year, day))
+  const response = await fetch(url(year, day), {
+    headers: {
+      cookie: `session=${process.env.AOC_SESSION}`,
+    },
+  })
   return response.text()
 }
 

@@ -36,5 +36,19 @@ program
     await createDay(year, day)
   })
 
+program
+  .command('update <year> <day>')
+  .action(async (year, day) => {
+    if (!isNumeric(year)) {
+      console.error('Year must be a number')
+      process.exit(1)
+    }
+    if (!isNumeric(day)) {
+      console.error('Day must be a number')
+      process.exit(1)
+    }
+
+    await updateDay(year, day)
+  })
 
 program.parse()
