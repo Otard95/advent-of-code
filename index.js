@@ -25,6 +25,24 @@ program
   })
 
 program
+  .command('test <year> <day>')
+  .action(async (year, day) => {
+    if (!isNumeric(year)) {
+      console.error('Year must be a number')
+      process.exit(1)
+    }
+    if (!isNumeric(day)) {
+      console.error('Day must be a number')
+      process.exit(1)
+    }
+
+    console.log('[TEST] Running day', day, 'for year', year, 'part 1')
+    await require(`./${year}/${day}/pt1`).test()
+    console.log('\n[TEST] Running day', day, 'for year', year, 'part 2')
+    await require(`./${year}/${day}/pt2`).test()
+  })
+
+program
   .command('setup <year> <day>')
   .action(async (year, day) => {
     if (!isNumeric(year)) {
