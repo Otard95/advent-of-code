@@ -87,10 +87,6 @@ program
       console.error('Part must be a number')
       process.exit(1)
     }
-    if (!isNumeric(answer)) {
-      console.error('Answer must be a number')
-      process.exit(1)
-    }
 
     const text = await postAnswer(year, day, part, answer)
 
