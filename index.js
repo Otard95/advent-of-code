@@ -1,4 +1,6 @@
 require('dotenv/config')
+const { writeFileSync } = require('node:fs')
+const { resolve } = require('node:path')
 const { program } = require('commander')
 const createDay = require('./src/create-day')
 const fetchInput = require('./src/fetch-input')
@@ -6,7 +8,7 @@ const postAnswer = require('./src/post-answer')
 const runDay = require('./src/run-day')
 const updateDay = require('./src/update-day')
 const { parseAnswer } = require('./src/parse')
-const { isNumeric } = require('./utils/is')
+const { isNumeric, isString } = require('./utils/is')
 
 program
   .arguments('<year> <day>')
@@ -43,8 +45,9 @@ program
   })
 
 program
-  .command('setup <year> <day>')
-  .action(async (year, day) => {
+  .command('setup <year> <day> <lang>')
+  .option('-i', '--input', 'Fetch input for the day')
+  .action(async (year, day, lang, { i }) => {
     if (!isNumeric(year)) {
       console.error('Year must be a number')
       process.exit(1)
@@ -53,8 +56,20 @@ program
       console.error('Day must be a number')
       process.exit(1)
     }
+    if (!isString(lang) && lang.length === 0) {
+      console.error('Language must be a string')
+      process.exit(1)
+    }
 
-    await createDay(year, day)
+    await createDay(year, day, lang)
+    if (i) {
+      const input_content = await fetchInput(year, day)
+      writeFileSync(
+        resolve(process.cwd(), year, day, 'input.txt'),
+        input_content,
+        { encoding: 'utf-8' },
+      )
+    }
   })
 
 program

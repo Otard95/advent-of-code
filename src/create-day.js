@@ -8,7 +8,7 @@ const {
 const fetchTask = require('./fetch-task')
 const { parseTask } = require('./parse')
 
-const createDay = async (year, day) => {
+const createDay = async (year, day, lang) => {
   const dir = resolve(process.cwd(), year, day)
   mkdirSync(dir, { recursive: true })
   // Make sure dir is empty
@@ -18,7 +18,7 @@ const createDay = async (year, day) => {
     process.exit(1)
   }
   // Copy files from ./base
-  const baseDir = resolve(process.cwd(), 'base')
+  const baseDir = resolve(process.cwd(), 'base', lang)
   const baseFiles = readdirSync(baseDir)
   baseFiles.forEach((file) => {
     copyFileSync(resolve(baseDir, file), resolve(dir, file))
