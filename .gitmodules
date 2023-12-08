@@ -1,0 +1,3 @@
+[submodule "2023/scu"]
+	path = 2023/scu
+	url = git@github.com:Otard95/scu.git
