@@ -1,52 +1,47 @@
 # Advent Of Code
 
-This repo has utils to setup your daily adventure including getting
-and parsing the task to markdown. It also handles getting the task input
-and passes it to the main function of each part.
+My Advent of Code solutions across multiple years and languages.
 
-## Getting started
+## Setup
 
-Add your AoC session token to a `./.env` with the key `AOC_SESSION`
-and `$ npm install`.
+Add your AoC session token to `./.env`:
+```
+AOC_SESSION=your_session_token_here
+```
 
-Setup your daily adventure with:
+Build the CLI tool:
 ```bash
-npm start setup <year> <day>
+cd cli
+go build -o aoc main.go
+cd ..
 ```
 
-Now you should have a directory `./<year>/<day>`
-with three files - `README.md`, `pt1.js` and `pt2.js`
-The readme has the adventure description the AoC site as Markdown
-the js files have the template:
-```javascript
-/**
- * @param {string} value
- */
-const main = async (input) => {
-  // Your code here
-}
+## Initialize a New Day
 
-module.exports.main = main
-```
-
-The main function as you can see takes one arg `input` which
-if you use the below command will be your adventure input from
-the AoC site.
+Use the CLI to create a new day from a template and download the input:
 
 ```bash
-npm start <year> <day>
+./cli/aoc init <template> [day] [year]
 ```
 
-When you think you have the correct answer you can use the `submit` command.
-Give the year, day, part and answer and check if you are correct.
-
+For example, to initialize today's puzzle with the Zig template:
 ```bash
-npm start submit <year> <day> <part> <answer>
+./cli/aoc init zig
 ```
 
-Once you've completed part one you can update the readme
-
-with:
+Or for a specific day and year:
 ```bash
-npm start update <year> <day>
+./cli/aoc init zig 1 2025
 ```
+
+This will:
+- Copy the template from `./base/<template>/` to `./<year>/<day>/`
+- Download your puzzle input from AoC to `input.txt`
+
+## Project Structure
+
+- `cli/` - Go CLI tool for managing AoC days
+- `base/` - Base templates for different languages (e.g., `zig`)
+- `<year>/<day>/` - Individual day solutions
+
+Previous years contain solutions in JavaScript, C, Go, and other languages.
